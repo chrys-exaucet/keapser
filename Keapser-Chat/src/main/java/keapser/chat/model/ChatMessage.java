@@ -1,7 +1,10 @@
-package keapser.chat.springboot.model;
+package keapser.chat.model;
+
+import javax.persistence.Table;
 
 import lombok.Data;
 
+@Table
 @Data
 public class ChatMessage {
 

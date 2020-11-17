@@ -1,4 +1,4 @@
-package keapser.chat.springboot.controller;
+package keapser.chat.controller;
 
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package keapser.chat.springboot.config;
+package keapser.chat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
