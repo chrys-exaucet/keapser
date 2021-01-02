@@ -8,6 +8,7 @@ before_install:
  - chmod a+x ./mvnw
 branches:
  only:
+  - dev
   - /^us.*$/
  os: linux
   dist: trusty
@@ -16,3 +17,4 @@ deploy:
   api_key: 
    secure: $HEROKU_API_KEY
   app: keapser
+  on: dev
