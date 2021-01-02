@@ -1,12 +1,18 @@
 language: java
+dist: trusty
 sudo: true
 jdk: 
  - openjdk11
  - openjdk15
 before_install:
-  - chmod +x mvnw
- 
+ - chmod a+x ./mvnw
+branches:
+ only:
+  - /^us.*$/
+ os: linux
+  dist: trusty
 deploy:
   provider: heroku
-  api_key: $HEROKU_API_KEY
+  api_key: 
+   secure: $HEROKU_API_KEY
   app: keapser
