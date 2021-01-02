@@ -1,0 +1,30 @@
+version: '3.7'
+
+networks:
+  keapsernet:
+    driver: bridge
+
+volumes:
+  keapser_service_db: { }
+
+services:
+
+  databases:
+    keapser-service-db:
+      container_name: keapser_service_db
+      image: postgres:11.5
+      ports:
+        - 2021:5432
+      networks:
+        - keapsernet
+
+  microservices:
+    keapser-service:
+      container_name: keapser_service
+      build: keapser-service
+      env_file:
+        - keapser-service/.env
+      networks:
+        - keapsernet
+      depends_on:
+        - keapser-service-db
