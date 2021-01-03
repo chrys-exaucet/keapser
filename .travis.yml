@@ -51,6 +51,7 @@ jobs:
     - stage: test
       - mvn test
     - stage: deploy
+      if: branch IN (master, dev)
       skip_cleanup: true
       script: skip
       deploy:
@@ -59,9 +60,7 @@ jobs:
         api_key:
           secure: $HEROKU_API_KEY
         on:
-        - branch: master
-        - condition: $TRAVIS_EVENT_TYPE = push
-        - jdk: 11
+          condition: $TRAVIS_EVENT_TYPE = push
 
 notifications:
   email:
@@ -69,3 +68,4 @@ notifications:
       - keapser-chat@groups.outlook.com
     on_error: change
     on_success: always
+
