@@ -11,7 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="keapser-service" target="15" />
+      <module name="keapser" target="1.5" />
+      <module name="keapser-service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
