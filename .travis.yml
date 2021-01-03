@@ -14,16 +14,9 @@ env:
   global:
     - DOCKER_COMPOSE_VERSION=1.8.0
 
-
-branches:
-  only:
-    - dev
-    - /^us.*$/
-
 cache:
   directories:
     - $HOME/.m2/repository
-
 
 before_install:
   - chmod +x mvn
@@ -41,8 +34,10 @@ install:
 
 before_script:
   - docker-compose up -d --build
+
 script:
   - docker-compose run test
+
 after_script:
   - docker-compose down
 
@@ -64,9 +59,9 @@ jobs:
         api_key:
           secure: $HEROKU_API_KEY
         on:
-          branch: master
-          condition: $TRAVIS_EVENT_TYPE = push
-          jdk: 11
+        - branch: master
+        - condition: $TRAVIS_EVENT_TYPE = push
+        - jdk: 11
 
 notifications:
   email:
