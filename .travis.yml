@@ -49,7 +49,7 @@ stages:
 jobs:
   include:
     - stage: test
-      - mvn test
+      script: mvn test
     - stage: deploy
       if: branch IN (master, dev)
       skip_cleanup: true
