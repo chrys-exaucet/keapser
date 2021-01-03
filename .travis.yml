@@ -69,3 +69,4 @@ notifications:
       - keapser-chat@groups.outlook.com
     on_error: change
     on_success: always
+    
