@@ -1,54 +1,72 @@
 language: java
 
+os: linux
+dist: xenial
 
 jdk:
   - openjdk11
   - openjdk15
 
-os: linux
-dist: trusty
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.8.0
+
 
 branches:
   only:
     - dev
     - /^us.*$/
 
-services:
-  - docker
+cache:
+  directories:
+    - $HOME/.m2/repository
 
-env:
-  - DOCKER_COMPOSE_VERSION=1.8.0
 
 before_install:
+  - chmod +x mvn
   - sudo apt-get update
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose --version
-
-before_script:
-  - docker-compose up -d --build
-
-script:
-  - docker-compose run test
-
-after_script:
-  - docker-compose down
+  - docker version
+  - docker-compose version
 
 install:
   - mvn -N io.takari:maven:wrapper
-  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
-deploy:
-  - provider: heroku
-    api_key:
-      secure: $HEROKU_API_KEY
-    app: keapser
-    on:
-      branch: master
-      jdk: 11
-  skip_cleanup: true
+before_script:
+  - docker-compose up -d --build
+script:
+  - docker-compose run test
+after_script:
+  - docker-compose down
+
+stages:
+  - test
+  - build
+  - deploy
+
+jobs:
+  include:
+    - stage: test
+      - mvn test
+    - stage: deploy
+      skip_cleanup: true
+      script: skip
+      deploy:
+        provider: heroku
+        app: keapser
+        api_key:
+          secure: $HEROKU_API_KEY
+        on:
+          branch: master
+          condition: $TRAVIS_EVENT_TYPE = push
+          jdk: 11
 
 notifications:
   email:

@@ -3,6 +3,8 @@ version: '3.7'
 networks:
   keapsernet:
     driver: bridge
+  backendnet:
+    driver: bridge
 
 volumes:
   keapser_service_db: { }
@@ -24,7 +26,15 @@ services:
       build: keapser-service
       env_file:
         - keapser-service/.env
+      ports:
+        - 80:8080
+      links:
+        - "keapser-service-db:keapser-db"
       networks:
         - keapsernet
+        - backendnet
       depends_on:
         - keapser-service-db
+
+
+  front-end:
