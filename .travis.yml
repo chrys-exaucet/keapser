@@ -34,12 +34,6 @@ install:
 before_script:
   - docker-compose up -d --build
 
-script:
-  - docker-compose run test
-
-after_script:
-  - docker-compose down
-
 stages:
   - test
   - build

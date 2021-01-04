@@ -5,14 +5,11 @@ ENV APP_ROOT /app
 ARG JAR_FILE=target/*.jar
 
 RUN addgroup -S keapser && adduser -S keapser-manager -G keapser
-USER keapser-manager:keapser
-
 RUN   apk add --update  curl \
     &&  rm -rf /var/lib/apt/lists/*
-
 RUN mkdir ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 COPY ${JAR_FILE} ${APP_ROOT}/app.jar
-
+USER keapser-manager:keapser
 VOLUME /tmp
 ENTRYPOINT ["java","-jar","app.jar"]
