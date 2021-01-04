@@ -44,7 +44,7 @@ jobs:
     - stage: test
       script: mvn test
     - stage: deploy
-      if: branch IN (master, dev)
+      if: branch IN (dev,master)
       skip_cleanup: true
       script: skip
       deploy:
