@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM adoptopenjdk/openjdk11:jre-11.0.6_10-alpine
 MAINTAINER chrys exaucet
 
 ENV APP_ROOT /app
@@ -7,8 +7,8 @@ ARG JAR_FILE=target/*.jar
 RUN addgroup -S keapser && adduser -S keapser-manager -G keapser
 USER keapser-manager:keapser
 
-RUN apt-get update \
-    && apt-get install -y curl \
+RUN  apk update \
+    &&  apk add -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir ${APP_ROOT}
