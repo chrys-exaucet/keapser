@@ -7,9 +7,8 @@ ARG JAR_FILE=target/*.jar
 RUN addgroup -S keapser && adduser -S keapser-manager -G keapser
 USER keapser-manager:keapser
 
-RUN  apk update \
-    &&  apk add -y curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN   apk add --update  curl \
+    &&  rm -rf /var/lib/apt/lists/*
 
 RUN mkdir ${APP_ROOT}
 WORKDIR ${APP_ROOT}
