@@ -10,8 +10,6 @@ volumes:
   keapser_service_db: { }
 
 services:
-
-  databases:
     keapser-service-db:
       container_name: keapser_service_db
       image: postgres:11.5
@@ -20,7 +18,6 @@ services:
       networks:
         - keapsernet
 
-  microservices:
     keapser-service:
       container_name: keapser_service
       build: keapser-service
@@ -35,6 +32,3 @@ services:
         - backendnet
       depends_on:
         - keapser-service-db
-
-
-  front-end:
