@@ -14,7 +14,11 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+<<<<<<< HEAD
 .idea/
+=======
+.idea
+>>>>>>> 5b6a720 (misc refactorings)
 *.iws
 *.iml
 *.ipr

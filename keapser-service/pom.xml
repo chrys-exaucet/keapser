@@ -13,7 +13,11 @@
     <artifactId>keapser-chat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>keapser-service</name>
+<<<<<<< HEAD
     <description>keapser core chat application</description>
+=======
+    <description>Springboot/Websocket based chat application</description>
+>>>>>>> 5b6a720 (misc refactorings)
 
     <properties>
         <java.version>11</java.version>
@@ -32,7 +36,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-reactor-netty</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -53,7 +56,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -70,7 +72,6 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
-
     </dependencies>
 
     <build>

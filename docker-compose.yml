@@ -19,6 +19,7 @@ services:
       - 2021:5432
     networks:
       - keapsernet
+<<<<<<< HEAD
 
   authentication-service-db:
     container_name: authentication_service_db
@@ -54,3 +55,20 @@ services:
       - backendnet
     depends_on:
       - authentication-service-db
+=======
+
+  keapser-service:
+    container_name: keapser_service
+    build: keapser-service
+    env_file:
+      - keapser-service/.env
+    ports:
+      - 80:8080
+    links:
+      - "keapser-service-db:keapser-db"
+    networks:
+      - keapsernet
+      - backendnet
+    depends_on:
+      - keapser-service-db
+>>>>>>> 5b6a720 (misc refactorings)
