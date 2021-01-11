@@ -12,4 +12,5 @@ WORKDIR ${APP_ROOT}
 COPY ${JAR_FILE} ${APP_ROOT}/app.jar
 USER keapser-manager:keapser
 VOLUME /tmp
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java"]
+CMD ["java","-jar","app.jar"]
