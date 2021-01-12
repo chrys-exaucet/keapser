@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keapser-service-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: keapser-service
+  template:
+    metadata:
+      labels:
+        app: keapser-service
+    spec:
+      containers:
+        - name: keapser_service_db
+          image: library/postgres:11.5
+          ports:
+            - containerPort: 5462
+          resources: { }
+        - name: keapser-service
+          image: ../../../../keapser-service/ # TODO: replace with registry name
+          ports:
+            - containerPort: 9090
+          env:
+            - name: PORT
+              value: "9090"
+            - name: JAVA_OPTS
+              value: "-Xmx256m -Xms128m"
+            - name: SPRING_PROFILE
+              value: "prod"
+            - name: DB_URL
+              value: "jdbc://localhost:5462/postgres"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_SCHEMA
+              value: "public"
+          resources: { }
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: keapserregistrysecret
