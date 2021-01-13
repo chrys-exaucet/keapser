@@ -12,7 +12,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -44,7 +44,7 @@ public class User {
 	
 	private LocalDate birthday;
 	
-	
+	@JsonIgnore
 	private LocalDateTime createdAccount;
 	
 	private String hashPass;

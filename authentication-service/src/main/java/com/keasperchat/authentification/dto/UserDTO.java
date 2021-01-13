@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTO {
 	@Id
+	@JsonIgnore
 	private long id;
 	
 	private String firstname;
@@ -32,19 +35,8 @@ public class UserDTO {
 	
 	private LocalDate birthday;
 	
-	
+	@JsonIgnore
 	private LocalDateTime createdAccount;
 	
 	private String hashPass;
-
-	@Override
-	public String toString() {
-		return "UserDTO [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", country=" + country + ", tel=" + tel + ", birthday=" + birthday+"0" + ", createdAccount="
-				+ createdAccount + ", hashPass=" + hashPass + "]";
-	}
-
-	
-	
-
 }

@@ -21,7 +21,7 @@ import com.keasperchat.authentification.dto.UserDTO;
 import com.keasperchat.authentification.mapper.UserMapper;
 import com.keasperchat.authentification.service.UserService;
 
-import io.swagger.annotations.Api;
+
 import io.swagger.annotations.ApiOperation;
 
 import static java.util.stream.Collectors.toList;

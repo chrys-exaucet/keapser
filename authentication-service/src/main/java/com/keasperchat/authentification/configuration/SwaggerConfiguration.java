@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
             .groupName("V1")
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.keapserchat.authentification.controller"))
+            .apis(RequestHandlerSelectors.basePackage("com.keasperchat.authentification"))
             .paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo());
