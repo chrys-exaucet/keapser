@@ -20,6 +20,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.keasperchat.authentification.dto.UserDTO;
 import com.keasperchat.authentification.mapper.UserMapper;
 import com.keasperchat.authentification.service.UserService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import static java.util.stream.Collectors.toList;
 
 import java.net.URI;
@@ -33,18 +37,19 @@ public class UserController {
 
 	public final UserMapper mapper =  UserMapper.INSTANCE;
 
-
+	@ApiOperation(value="Retourne tous les utilisateurs")
 	@GetMapping(value = "/users")
 	private List<UserDTO> getUsers(){
 		return userService.findAll().stream().map(mapper::toDto).collect(toList());
 	}
 
-
+	@ApiOperation(value="Retourne un utilisateur par son id")
 	@GetMapping(value="/user/{id}")
 	private UserDTO getUserById(@PathVariable long id) {
 		return mapper.toDto(userService.findById(id));
 	}
 
+	@ApiOperation(value="Enregistre un nouvel utlisateur")
 	@PostMapping(value="/add")
 	private ResponseEntity<UserDTO> newUser(@Valid @RequestBody UserDTO newUser) {
 		UserDTO user = mapper.toDto(userService.save(mapper.fromDto(newUser)));
@@ -58,7 +63,7 @@ public class UserController {
 	}
 
 
-
+	@ApiOperation(value="Met à jour un utilisateur")
 	@PutMapping(path = "/update")
 	public ResponseEntity<UserDTO> updateEmployee(@Valid @RequestBody UserDTO userUpdate) {
 		if((userService.update(mapper.fromDto(userUpdate))!=null)) {
@@ -67,7 +72,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build() ;
 	}
 
-
+	@ApiOperation(value="Supprime un utlisateur")
 	@DeleteMapping(path = "/delete")
 	public ResponseEntity<UserDTO> deleteEmployee(@Valid @RequestBody UserDTO dto) {
 		if (userService.delete(mapper.fromDto(dto)))
