@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/authentication-service/authentication-service.iml" filepath="$PROJECT_DIR$/authentication-service/authentication-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/keapser.iml" filepath="$PROJECT_DIR$/.idea/keapser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/keapser-service/keapser-service.iml" filepath="$PROJECT_DIR$/keapser-service/keapser-service.iml" />
     </modules>
   </component>
 </project>
