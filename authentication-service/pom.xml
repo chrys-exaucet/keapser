@@ -12,7 +12,7 @@
     <groupId>com.keasper.chat.auth</groupId>
     <artifactId>authentication-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>authentication</name>
+    <name>authentication-service</name>
     <description> keapser authentication service</description>
 
     <properties>

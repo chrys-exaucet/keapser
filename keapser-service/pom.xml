@@ -10,10 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.keapser.chat</groupId>
-    <artifactId>Keapser-chat</artifactId>
+    <artifactId>keapser-chat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Keapser-service</name>
-    <description>Springboot/Websocket based chat application</description>
+    <name>keapser-service</name>
+    <description>keapser core chat application</description>
 
     <properties>
         <java.version>11</java.version>
