@@ -49,10 +49,11 @@ public class UserService {
 	}
 	
 	//ajouter la verification de tous les champs
-	public boolean delete (User user) {
-		Optional<User> response = userDao.findById(user.getId());
+	//
+	public boolean delete (Long id) {
+		Optional<User> response = userDao.findById(id);
 		if(response.isPresent() == true && response.get() !=null  ) {
-		userDao.delete(user);
+		userDao.deleteById(id);
 		return true;
 		}else return  false;
 	}

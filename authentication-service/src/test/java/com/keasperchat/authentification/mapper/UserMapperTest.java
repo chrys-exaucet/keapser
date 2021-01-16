@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,6 +27,7 @@ class UserMapperTest {
 	
 
 	@Test
+	@DisplayName("Teste le mapping vers DTO")
 	void testToDto() {
 		
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"); 
@@ -46,6 +48,7 @@ class UserMapperTest {
 	}
 
 	@Test
+	@DisplayName("Teste le mapping de Dto vers User")
 	void testFromDto() {
 		
 		UserDTO userDto = new UserDTO(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");

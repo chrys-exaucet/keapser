@@ -2,7 +2,8 @@ package com.keasperchat.authentification.controller;
 
 
 
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -44,9 +46,10 @@ class UserControllerTest {
 	private MockMvc mock ;
 
 	public final UserMapper mapper =  UserMapper.INSTANCE;
-
+	
 
 	@Test
+	@DisplayName("Teste et verifie que tous les utilisateurs sont renvoyé ")
 	void testGetEmployees() throws Exception {
 
 		List<UserDTO> usersDTO = Arrays.asList(new UserDTO(1L,"Bou","Jen","deron@gmail.com","Benin",(int)97518, LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
@@ -62,25 +65,26 @@ class UserControllerTest {
 		for(UserDTO user: usersDTO) {
 
 			mock.perform(get("/auth/users")).andExpect(status().isOk()).andDo(print())
-			.andExpect(jsonPath("["+i+"].id").value(mapper.fromDto(user).getId()))
 			.andExpect(jsonPath("["+i+"].firstname").value(mapper.fromDto(user).getFirstname()))
 			.andExpect(jsonPath("["+i+"].lastname").value(mapper.fromDto(user).getLastname()))
 			.andExpect(jsonPath("["+i+"].email").value(mapper.fromDto(user).getEmail()))
 			.andExpect(jsonPath("["+i+"].country").value(mapper.fromDto(user).getCountry()))
 			.andExpect(jsonPath("["+i+"].tel").value(mapper.fromDto(user).getTel()))
 			.andExpect(jsonPath("["+i+"].birthday").value(mapper.fromDto(user).getBirthday().toString()))
-			.andExpect(jsonPath("["+i+"].createdAccount").value(mapper.fromDto(user).getCreatedAccount().toString()))
 			.andExpect(jsonPath("["+i+"].hashPass").value(mapper.fromDto(user).getHashPass()));
 			i++;
 		}
 
 		mock.perform(get("/auth/users")).andExpect(status().isOk()).andDo(print())
-		.andExpect(jsonPath("[0].id").value(1L));
+		.andExpect(jsonPath("[3].email").value("derqfezfon@gmail.com"));
 	}
 
 	@Test
-	void testDeleteEmployee() {
-		withSuccess();
+	@DisplayName("Teste la supperession d'uun utilisateur par son id")
+	void testDeleteEmployee() throws Exception {
+		Mockito.when(userService.delete(1L)).thenReturn(true);
+		mock.perform(delete("/auth/delete/1")).andExpect(status().isOk());
+		mock.perform(delete("/auth/delete/2")).andExpect(status().isBadRequest());
 	}
 
 

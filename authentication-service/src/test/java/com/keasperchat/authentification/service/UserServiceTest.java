@@ -105,8 +105,8 @@ class UserServiceTest {
 		
 		Mockito.when(userDao.findById(user.getId())).thenReturn(Optional.of(user));
 		
-		assertThat(userService.delete(user)).isTrue();
-		assertThat(userService.delete(new User())).isFalse();
+		assertThat(userService.delete(user.getId())).isTrue();
+		assertThat(userService.delete(new User().getId())).isFalse();
 		
 
 	}

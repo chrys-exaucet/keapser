@@ -73,10 +73,10 @@ public class UserController {
 	}
 
 	@ApiOperation(value="Supprime un utlisateur")
-	@DeleteMapping(path = "/delete")
-	public ResponseEntity<UserDTO> deleteEmployee(@Valid @RequestBody UserDTO dto) {
-		if (userService.delete(mapper.fromDto(dto)))
-		return ResponseEntity.ok().build();
-		else return ResponseEntity.notFound().build();
+	@DeleteMapping(path = "/delete/{id}")
+	public ResponseEntity<UserDTO> deleteEmployee(@PathVariable("id") Long userId) {
+		if (userService.delete(userId)) {
+		return ResponseEntity.ok().build();}
+		else return ResponseEntity.badRequest().build();
 	}
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.keasperchat.authentification.model.User;
@@ -17,6 +18,7 @@ class UserDTOTest {
 	
 
 	@Test
+	@DisplayName("Teste un utilisateur DTO")
 	void test() {
 		user = new User ();
 		assertThat(user).isNotNull();
