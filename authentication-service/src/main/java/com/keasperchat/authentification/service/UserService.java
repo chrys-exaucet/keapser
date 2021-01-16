@@ -1,28 +1,28 @@
 package com.keasperchat.authentification.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.keasperchat.authentification.dao.UserDao;
 import com.keasperchat.authentification.model.User;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 	
-	@Autowired
-	private UserDao userDao;
-	
+	private final UserDao userDao;
+
+	public UserService(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	public List<User> findAll(){
 		return userDao.findAll();
 	}
 	
 	public User findById(long id) {
 		Optional<User> user = userDao.findById(id);
-		if(user.isPresent())return user.get();
-		return null;
+		return user.orElse(null);
 	}
 	public User findByFirstName(String firstname) {
 		return userDao.findByFirstname(firstname);
@@ -48,11 +48,11 @@ public class UserService {
 		return null;
 	}
 	
-	//ajouter la verification de tous les champs
+	// TODO: ajouter la verification de tous les champs
 	//
 	public boolean delete (Long id) {
 		Optional<User> response = userDao.findById(id);
-		if(response.isPresent() == true && response.get() !=null  ) {
+		if(response.isPresent()) {
 		userDao.deleteById(id);
 		return true;
 		}else return  false;

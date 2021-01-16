@@ -11,8 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AuthentificationApplication.class)
-class AuthentificationApplicationTests {
+@WebMvcTest(AuthenticationServiceApplication.class)
+class AuthenticationServiceApplicationTests {
 
 	
 	@Test
