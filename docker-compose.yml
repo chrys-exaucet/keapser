@@ -5,28 +5,52 @@ networks:
     driver: bridge
   backendnet:
     driver: bridge
+  authenticationnet:
+    driver: bridge
 
 volumes:
   keapser_service_db: { }
 
 services:
-    keapser-service-db:
-      container_name: keapser_service_db
-      image: postgres:11.5
-      ports:
-        - 2021:5432
-      networks:
-        - keapsernet
+  keapser-service-db:
+    container_name: keapser_service_db
+    image: postgres:11.5
+    ports:
+      - 2021:5432
+    networks:
+      - keapsernet
 
-    keapser-service:
-      container_name: keapser_service
-      build: keapser-service
-      env_file:
-        - keapser-service/.env
-      ports:
-        - 80:8080
-      networks:
-        - keapsernet
-        - backendnet
-      depends_on:
-        - keapser-service-db
+  authentication-service-db:
+    container_name: authentication_service_db
+    image: postgres:11.5
+    ports:
+      - 2022:5432
+    networks:
+      - authenticationnet
+
+  keapser-service:
+    container_name: keapser_service
+    build: keapser-service
+    env_file:
+      - keapser-service/.env
+    ports:
+      - 80:8080
+    networks:
+      - keapsernet
+      - backendnet
+    depends_on:
+      - keapser-service-db
+
+
+  authentication-service:
+    container_name: authentication_service
+    build: authentication-service
+    env_file:
+      - authentication-service/.env
+    ports:
+      - 81:9090
+    networks:
+      - authenticationnet
+      - backendnet
+    depends_on:
+      - authentication-service-db
