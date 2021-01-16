@@ -1,0 +1,14 @@
+
+server:
+  port: 9090
+  
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  datasource:
+    url: "jdbc:postgresql://localhost:2022/postgres"
+    username: postgres
+    password: password

@@ -11,5 +11,6 @@
     <name>keapser</name>
     <modules>
         <module>keapser-service</module>
+        <module>authentication-service</module>
     </modules>
 </project>
