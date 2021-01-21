@@ -4,18 +4,12 @@ import React, {
   useCallback,
 } from "react";
 import "./CreateAccount.css";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import LogoKeapserChat from "./logo.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import "country-state-picker";
 import { CountryDropdown } from "react-country-region-selector";
-
-//Definition of data shape for the form
-/*interface CountryData {
-  name: string,
- code: string,
- dial_code: string,
-}*/
+import axios from "axios";
 
 export interface FormData {
   email: string;
@@ -31,7 +25,6 @@ function CreateAccount() {
   const {
     register,
     handleSubmit,
-    control,
     errors,
   } = useForm<FormData>({
     mode: "onSubmit",
@@ -59,11 +52,17 @@ function CreateAccount() {
   const [lastname, setLastName] = useState<string>("");
   const [hassPass, setHassPass] = useState<string>("");
   const [birthday, setBirthDay] = useState<string>("");
-  import axios from "axios";
 
   const onSubmit = useCallback((formValues: FormData) => {
     // console.log(formValues);
-
+    axios
+      .post("http://localhost:9090/auth/add")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -198,31 +197,26 @@ function CreateAccount() {
                 <label>Date de naissance</label>
               </div>
               <div className="form__RowCustomContent">
-              <input
-                value={birthday}
-                ref={register()}
-                name="birthday"
-                type="date"
-                onChange={(
-                  e: ChangeEvent<HTMLInputElement>
-                ) => setBirthDay(e.target.value)}
-              ></input>
+                <input
+                  value={birthday}
+                  ref={register()}
+                  name="birthday"
+                  type="date"
+                  onChange={(
+                    e: ChangeEvent<HTMLInputElement>
+                  ) => setBirthDay(e.target.value)}
+                ></input>
               </div>
             </div>
 
             <div className="form__RowColumn">
               <label>Pays</label>
 
-
-                  <CountryDropdown
-                    value={country}
-                    valueType="full"
-                    onChange={(val: string) =>
-                      setCountry(val)
-                    }
-                  />
-
-
+              <CountryDropdown
+                value={country}
+                valueType="full"
+                onChange={(val: string) => setCountry(val)}
+              />
             </div>
             <div className="form__RowColumn submit__Button">
               <button type="submit" value="Submit">
