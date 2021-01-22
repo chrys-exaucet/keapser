@@ -13,7 +13,7 @@ export interface FormData {
     tel: string;
     firstname: string;
     lastname: string;
-    hassPass: string;
+    hashPass: string;
     birthday: string;
     country: string;
 }
@@ -42,7 +42,7 @@ function CreateAccount() {
             tel: "",
             firstname: "",
             lastname: "",
-            hassPass: "",
+            hashPass: "",
             birthday: "",
             country: "",
         },
