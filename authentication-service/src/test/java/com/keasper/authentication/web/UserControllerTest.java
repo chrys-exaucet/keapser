@@ -52,12 +52,12 @@ class UserControllerTest {
 	@DisplayName("Teste et verifie que tous les utilisateurs sont renvoyé ")
 	void testGetEmployees() throws Exception {
 
-		List<UserDTO> usersDTO = Arrays.asList(new UserDTO(1L,"Bou","Jen","deron@gmail.com","Benin",(int)97518, LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
-				new UserDTO(2L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918,LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
-				new UserDTO(3L,"Boud","Jen","deroffn@gmail.com","Benin",(int)9745818, LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
-				new UserDTO(4L,"Boue","Jen","derqfezfon@gmail.com","Benin",(int)9754568, LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"));
+		
+		List<UserDTO> usersDTO = Arrays.asList(new UserDTO(1L,"Bou","Jen","deron@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
+				new UserDTO(2L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
+				new UserDTO(3L,"Boud","Jen","deroffn@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
+				new UserDTO(4L,"Boue","Jen","derqfezfon@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"));
 
-		//DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		List<User> users= new ArrayList<>() ;
 		usersDTO.forEach(e->users.add(mapper.fromDto(e)));
 		Mockito.when(userService.findAll()).thenReturn(users);

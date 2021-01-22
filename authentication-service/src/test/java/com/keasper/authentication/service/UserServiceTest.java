@@ -36,8 +36,8 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Teste pour verifier qu'il retourne tous les utilissateurs")
 	void testFindAll() {
-		List<User> users = Arrays.asList(new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"),
-				new User(2L,"Bojf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"));
+		List<User> users = Arrays.asList(new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"),
+				new User(2L,"Bojf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"));
 		Mockito.when(userRepository.findAll()).thenReturn(users);
 
 		assertThat(userService.findAll()).isEqualTo(userRepository.findAll());
@@ -46,7 +46,7 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Verifie qui trouve un utilisateur ou pas par ID")
 	void testFindById() {
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 		assertThat(userService.findById(1L)).isEqualTo(userRepository.findById(1L).get());
 		assertThat(userService.findById(2L)).isNull();
@@ -57,7 +57,7 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Verifie qui trouve un utilisateur ou pas par FirstName")
 	void testFindByFirstName() {
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918,LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findByFirstname("Bouf")).thenReturn(user);
 		assertThat(userService.findByFirstName("Bouf")).isEqualTo(userRepository.findByFirstname("Bouf"));
 		assertThat(userService.findByFirstName("")).isNull();
@@ -68,7 +68,7 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Verifie qui trouve un utilisateur ou pas par LastName")
 	void testFindByLastName() {
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findByLastname("Jen")).thenReturn(user);
 		assertThat(userService.findByLastName("Jen")).isEqualTo(userRepository.findByLastname("Jen"));
 		assertThat(userService.findByLastName("")).isNull();
@@ -79,7 +79,7 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Verifie qu'un user est sauvegardé")
 	void testSave() {
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.save(user)).thenReturn(user);
 
 		assertThat(userService.save(user)).isEqualTo(user);
@@ -91,7 +91,7 @@ class UserServiceTest {
 	@Test
 	@DisplayName("Verifie qu'il met à jour un user")
 	void testUpdate() {
-		User user = new User(10L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(10L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 		user.setLastname("Beef");
 		assertThat(userService.update(user)).isNotEqualTo(user);
@@ -101,7 +101,7 @@ class UserServiceTest {
 	@Test
 	void testDelete() {
 
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918,  LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",  LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		
 		Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 		

@@ -54,6 +54,7 @@ public class UserController {
 	private ResponseEntity<UserDTO> newUser(@Valid @RequestBody UserDTO newUser) {
 		UserDTO user = mapper.toDto(userService.save(mapper.fromDto(newUser)));
 		if(user==null) return ResponseEntity.noContent().build();
+		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/")
@@ -65,18 +66,17 @@ public class UserController {
 
 	@ApiOperation(value="Met à jour un utilisateur")
 	@PutMapping(path = "/update")
-	public ResponseEntity<UserDTO> updateEmployee(@Valid @RequestBody UserDTO userUpdate) {
+	private ResponseEntity<UserDTO> updateEmployee(@Valid @RequestBody UserDTO userUpdate) {
 		if((userService.update(mapper.fromDto(userUpdate)) != null)) {
 			return ResponseEntity.status(HttpStatus.RESET_CONTENT).build();
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build() ;
 	}
 
-	@ApiOperation(value="Supprime un utlisateur")
+	@ApiOperation(value="Supprime un utlisateur par un id")
 	@DeleteMapping(path = "/delete/{id}")
-	public ResponseEntity<UserDTO> deleteEmployee(@PathVariable("id") Long userId) {
-		if (userService.delete(userId)) {
-		return ResponseEntity.ok().build();}
-		else return ResponseEntity.badRequest().build();
+	private ResponseEntity<UserDTO> deleteEmployee(@PathVariable("id") Long userId) {
+		userService.delete(userId);
+		return ResponseEntity.noContent().build();
 	}
 }

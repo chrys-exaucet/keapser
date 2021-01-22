@@ -1,11 +1,12 @@
 package com.keasper.authentication.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.keasper.authentication.repository.UserRepository;
+import com.keasper.authentication.exceptions.NoDataFoundException;
+import com.keasper.authentication.exceptions.UserNotFoundException;
 import com.keasper.authentication.model.User;
 
 @Service
@@ -18,19 +19,24 @@ public class UserService {
 	}
 
 	public List<User> findAll(){
-		return userRepository.findAll();
+		List<User> users = userRepository.findAll();
+		if(users.isEmpty()) throw new NoDataFoundException();
+		else return users;
 	}
 	
 	public User findById(long id) {
-		Optional<User> user = userRepository.findById(id);
-		return user.orElse(null);
+		return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
 	}
 	public User findByFirstName(String firstname) {
-		return userRepository.findByFirstname(firstname);
+		User user = userRepository.findByFirstname(firstname); 
+		if(user!=null) throw new UserNotFoundException("firstname", firstname);
+		else return user;
 	}
 	
 	public User findByLastName(String lastname) {
-		return  userRepository.findByLastname(lastname);
+		User user = userRepository.findByFirstname(lastname); 
+		if(user!=null) throw new UserNotFoundException("lasttname", lastname);
+		else return user;
 	}
 	
 	public User save (User user) {
@@ -38,13 +44,12 @@ public class UserService {
 	}
 	
 	public User update(User user) {
-		Optional<User> userUpdate = userRepository.findById(user.getId());
-		if (userUpdate.isPresent()) {
-			User userKeep = userUpdate.get();
-			userKeep.setFirstname(user.getFirstname());
-			userKeep.setLastname(user.getLastname());
-			userKeep.setEmail(user.getEmail());
-			return this.save(userKeep);
+		User userUpdate = this.findById(user.getId());
+		if (userUpdate!=null) {
+			userUpdate.setFirstname(user.getFirstname());
+			userUpdate.setLastname(user.getLastname());
+			userUpdate.setEmail(user.getEmail());
+			return this.save(userUpdate);
 		}
 		return null;
 	}
@@ -52,11 +57,8 @@ public class UserService {
 	//ajouter la verification de tous les champs
 	//
 	public boolean delete (Long id) {
-		Optional<User> response = userRepository.findById(id);
-		if(response.isPresent() == true && response.get() !=null  ) {
-		userRepository.deleteById(id);
-		return true;
-		}else return  false;
+		if(this.findById(id)!=null) { userRepository.deleteById(id);return true;}
+		else return false;
 	}
 
 }

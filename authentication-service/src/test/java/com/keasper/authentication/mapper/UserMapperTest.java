@@ -30,7 +30,7 @@ class UserMapperTest {
 	@DisplayName("Teste le mapping vers DTO")
 	void testToDto() {
 		
-		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"); 
+		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"); 
 		
 		UserDTO userDto = mapper.toDto(user);
 		
@@ -51,7 +51,7 @@ class UserMapperTest {
 	@DisplayName("Teste le mapping de Dto vers User")
 	void testFromDto() {
 		
-		UserDTO userDto = new UserDTO(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		UserDTO userDto = new UserDTO(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		
 		User user = mapper.fromDto(userDto);
 		

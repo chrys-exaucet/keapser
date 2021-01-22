@@ -22,7 +22,7 @@ class UserDTOTest {
 	void test() {
 		user = new User ();
 		assertThat(user).isNotNull();
-		user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin",(int)979918, LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
+		user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		assertEquals(user.getCreatedAccount().getMinute(), LocalTime.now().getMinute());
 	}
 
