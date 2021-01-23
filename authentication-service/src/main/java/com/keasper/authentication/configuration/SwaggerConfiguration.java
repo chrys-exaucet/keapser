@@ -18,26 +18,26 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 	@Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("V1")
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("com.keasper.authentication"))
-            .paths(PathSelectors.any())
-            .build()
-            .apiInfo(apiInfo());
-    }
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("V1")
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.keasper.authentication"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo());
+	}
 
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-            "Keapser Chat - Authentication Service - RESTful API",
-            "Exposing  REST endpoints for users management",
-            "v1.0",
-            "Not yet defined",
-            new Contact("Salomon DAHOUN", "https://github.com/salomon-dhn", "salomondahoun@yahoo.fr"),
-            "CC BY-SA 3.0",
-            "https://creativecommons.org/licenses/by-sa/3.0/",
-            Collections.emptyList());
-    }
+	private ApiInfo apiInfo() {
+		return new ApiInfo(
+				"Keapser Chat - Authentication Service - RESTful API",
+				"Exposing  REST endpoints for users management",
+				"v1.0",
+				"Not yet defined",
+				new Contact("Salomon DAHOUN", "https://github.com/salomon-dhn", "salomondahoun@yahoo.fr"),
+				"CC BY-SA 3.0",
+				"https://creativecommons.org/licenses/by-sa/3.0/",
+				Collections.emptyList());
+	}
 
 }

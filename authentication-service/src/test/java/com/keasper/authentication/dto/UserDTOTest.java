@@ -15,7 +15,7 @@ import com.keasper.authentication.model.User;
 class UserDTOTest {
 
 	private User user;
-	
+
 
 	@Test
 	@DisplayName("Teste un utilisateur DTO")

@@ -32,34 +32,34 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="idSeq")
 	private long id;
-	
+
 	@NotEmpty(message="Firstname cannot be empty")
 	private String firstname;
-	
+
 	@NotEmpty(message="Lastname cannot be empty")
 	private String lastname;
-	
-	
+
+
 	@Email(message="Email should be valid")
 	@Column(unique = true)
 	private String email;
-	
+
 	@NotEmpty(message="Country should be valid")
 	private String country;
-	
+
 	@Size(min=5, max=10, message="Telephone should be valid : cannot be empty")
 	@NotBlank(message="Telephone should be valid : not blank character")
 	@Column(unique = true)
 	private String tel;
-	
+
 	@Past(message="Birthday is not past")
 	private LocalDate birthday;
 
 	private LocalDateTime createdAccount;
-	
+
 	@NotEmpty(message="Password cannot be empty")
 	private String hashPass;
-	
+
 
 	@PrePersist
 	private void onCreate() {

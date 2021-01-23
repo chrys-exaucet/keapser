@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class UserTest {
 
 	private User user;
-	
+
 	@Test
 	@DisplayName("Teste un utilisateur")
 	void test() {

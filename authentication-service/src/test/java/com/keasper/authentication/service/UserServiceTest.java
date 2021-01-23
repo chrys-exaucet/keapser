@@ -2,6 +2,7 @@ package com.keasper.authentication.service;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.keasper.authentication.repository.UserRepository;
+import com.keasper.authentication.exceptions.UserNotFoundException;
 import com.keasper.authentication.model.User;
 
 @ExtendWith(SpringExtension.class)
@@ -49,8 +51,8 @@ class UserServiceTest {
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 		assertThat(userService.findById(1L)).isEqualTo(userRepository.findById(1L).get());
-		assertThat(userService.findById(2L)).isNull();
-		assertThat(userService.findById(0L)).isNull();
+		assertThrows(UserNotFoundException.class,()-> userService.findById(2L) );
+		assertThrows(UserNotFoundException.class,()-> userService.findById(0L) );
 	}
 
 
@@ -60,8 +62,7 @@ class UserServiceTest {
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findByFirstname("Bouf")).thenReturn(user);
 		assertThat(userService.findByFirstName("Bouf")).isEqualTo(userRepository.findByFirstname("Bouf"));
-		assertThat(userService.findByFirstName("")).isNull();
-		assertThat(userService.findByFirstName("Hello")).isNull();
+		assertThrows(NullPointerException.class, ()->userService.findByFirstName(""));
 	}
 
 
@@ -70,9 +71,9 @@ class UserServiceTest {
 	void testFindByLastName() {
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findByLastname("Jen")).thenReturn(user);
+		assertThrows(NullPointerException.class, ()->userService.findByLastName(""));
 		assertThat(userService.findByLastName("Jen")).isEqualTo(userRepository.findByLastname("Jen"));
-		assertThat(userService.findByLastName("")).isNull();
-		assertThat(userService.findByLastName("Jon")).isNull();
+
 	}
 
 
@@ -102,12 +103,12 @@ class UserServiceTest {
 	void testDelete() {
 
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",  LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
-		
+
 		Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-		
+
 		assertThat(userService.delete(user.getId())).isTrue();
-		assertThat(userService.delete(new User().getId())).isFalse();
-		
+		assertThrows(UserNotFoundException.class, ()->userService.delete(new User().getId()));
+
 
 	}
 

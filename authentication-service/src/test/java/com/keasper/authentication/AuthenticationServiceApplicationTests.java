@@ -14,10 +14,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @WebMvcTest(AuthenticationServiceApplication.class)
 class AuthenticationServiceApplicationTests {
 
-	
+
 	@Test
 	void contextLoads() {
-	withSuccess();	
+		withSuccess();	
 	}
 
 }

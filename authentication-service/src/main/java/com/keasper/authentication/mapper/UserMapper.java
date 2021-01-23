@@ -9,12 +9,12 @@ import com.keasper.authentication.model.User;
 
 @Mapper
 public interface UserMapper {
-	
+
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-	
-	
+
+
 	UserDTO toDto(User user);
-	
+
 	@InheritInverseConfiguration
 	User fromDto(UserDTO userDTO);
 }

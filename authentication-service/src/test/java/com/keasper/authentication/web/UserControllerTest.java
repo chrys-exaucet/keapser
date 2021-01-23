@@ -46,13 +46,13 @@ class UserControllerTest {
 	private MockMvc mock ;
 
 	public final UserMapper mapper =  UserMapper.INSTANCE;
-	
+
 
 	@Test
 	@DisplayName("Teste et verifie que tous les utilisateurs sont renvoyé ")
 	void testGetEmployees() throws Exception {
 
-		
+
 		List<UserDTO> usersDTO = Arrays.asList(new UserDTO(1L,"Bou","Jen","deron@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
 				new UserDTO(2L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
 				new UserDTO(3L,"Boud","Jen","deroffn@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.of(2020, 12, 22, 12, 34,45), "gjn"),
@@ -80,11 +80,11 @@ class UserControllerTest {
 	}
 
 	@Test
-	@DisplayName("Teste la supperession d'uun utilisateur par son id")
+	@DisplayName("Teste la supperession d'un utilisateur par son id")
 	void testDeleteEmployee() throws Exception {
 		Mockito.when(userService.delete(1L)).thenReturn(true);
-		mock.perform(delete("/auth/delete/1")).andExpect(status().isOk());
-		mock.perform(delete("/auth/delete/2")).andExpect(status().isBadRequest());
+		mock.perform(delete("/auth/delete/1")).andExpect(status().isNoContent());
+		mock.perform(delete("/auth/delete/2")).andExpect(status().isNotFound());
 	}
 
 

@@ -19,29 +19,29 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
 	@Id
 	private long id;
-	
+
 	@NotEmpty(message="Firstname cannot be empty")
 	private String firstname;
-	
-	
+
+
 	@NotEmpty(message="Lastname cannot be empty")
 	private String lastname;
-	
+
 	@Email(message="Email should be valid")
 	private String email;
-	
+
 	@NotEmpty(message="Country should be valid")
 	private String country;
-	
+
 	@Size(min=5, max=10, message="Telephone should be valid")
 	@NotBlank(message="Telephone should be valid : not blank character")
 	private String tel;
-	
+
 	@Past(message="Birthday is not past")
 	private LocalDate birthday;
 
 	private LocalDateTime createdAccount;
-	
+
 	@NotEmpty(message="Password cannot be empty")
 	private String hashPass;
 }

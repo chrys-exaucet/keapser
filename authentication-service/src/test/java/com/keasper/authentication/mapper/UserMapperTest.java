@@ -17,24 +17,25 @@ import com.keasper.authentication.model.User;
 
 @ExtendWith(SpringExtension.class)
 class UserMapperTest {
-	
 
-	
-	
+
+
+
 	public final UserMapper mapper =  UserMapper.INSTANCE;
-	
-	
-	
+
+
+
 
 	@Test
 	@DisplayName("Teste le mapping vers DTO")
 	void testToDto() {
-		
+
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn"); 
-		
+
 		UserDTO userDto = mapper.toDto(user);
-		
+
 		assertThat(user.getId()).isEqualTo(userDto.getId());
+		assertThat(user.getFirstname()).isEqualTo("Bouf");
 		assertThat(user.getFirstname()).isEqualTo(userDto.getFirstname());
 		assertThat(user.getLastname()).isEqualTo(userDto.getLastname());
 		assertThat(user.getEmail()).isEqualTo(userDto.getEmail());
@@ -43,18 +44,18 @@ class UserMapperTest {
 		assertThat(user.getBirthday()).isEqualTo(userDto.getBirthday());
 		assertThat(user.getCreatedAccount()).isEqualTo(userDto.getCreatedAccount());
 		assertThat(user.getHashPass()).isEqualTo(userDto.getHashPass());
-		
-		
+
+
 	}
 
 	@Test
 	@DisplayName("Teste le mapping de Dto vers User")
 	void testFromDto() {
-		
+
 		UserDTO userDto = new UserDTO(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
-		
+
 		User user = mapper.fromDto(userDto);
-		
+
 		assertThat(userDto.getId()).isEqualTo(user.getId());
 		assertThat(userDto.getFirstname()).isEqualTo(user.getFirstname());
 		assertThat(userDto.getLastname()).isEqualTo(userDto.getLastname());
