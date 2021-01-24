@@ -1,25 +1,18 @@
-import React, {ChangeEvent, useState,} from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./CreateAccount.css";
 import { useForm } from "react-hook-form";
 import { CountryDropdown } from "react-country-region-selector";
 import axios from "axios";
 
-
 export interface FormData {
-    email: string;
-    tel: string;
-    firstname: string;
-    lastname: string;
-    hashPass: string;
-    birthday: string;
-    country: string;
+  email: string;
+  tel: string;
+  firstname: string;
+  lastname: string;
+  hashPass: string;
+  birthday: string;
+  country: string;
 }
-
-const postman = axios.create({
-    baseURL: "http://localhost:9090",
-    headers: {'Access-Control-Allow-Origin': true},
-});
-
 
 function CreateAccount() {
   const {
@@ -203,7 +196,7 @@ function CreateAccount() {
                   minLength: 8,
                 })}
                 name="hashPass"
-                type="password" 
+                type="password"
                 onChange={(
                   e: ChangeEvent<HTMLInputElement>
                 ) => setHashPass(e.target.value)}
@@ -235,12 +228,12 @@ function CreateAccount() {
                   e: ChangeEvent<HTMLInputElement>
                 ) => setBirthDay(e.target.value)}
               />
-            
-            <div className="form__groupErrors">
-              {errors.birthday?.type === "required" && (
-                <p>Your input is required</p>
-              )}
-            </div>
+
+              <div className="form__groupErrors">
+                {errors.birthday?.type === "required" && (
+                  <p>Your input is required</p>
+                )}
+              </div>
             </div>
 
             <div className="form__group">
