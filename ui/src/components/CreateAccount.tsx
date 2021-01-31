@@ -51,8 +51,8 @@ function CreateAccount() {
     postman
       .post("auth/add", formValues)
       .then((response) => {
-        console.log(response);
-        alert("Inscription complete !");
+       /* console.log(response);*/
+        alert(`Inscription complete ! Status: ${response.request.status}`);
       })
       .catch((error) => {
         switch (error.request.status) {
