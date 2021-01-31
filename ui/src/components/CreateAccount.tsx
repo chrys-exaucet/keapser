@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from "react";
 import "./CreateAccount.css";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { CountryDropdown } from "react-country-region-selector";
-import axios from "axios";
+import postman from "./axios";
 
-export interface FormData {
+interface FormData {
   email: string;
   tel: string;
   firstname: string;
@@ -19,6 +19,7 @@ function CreateAccount() {
     register,
     handleSubmit,
     errors,
+    control,
   } = useForm<FormData>({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -46,11 +47,6 @@ function CreateAccount() {
   const [hashPass, setHashPass] = useState<string>("");
   const [birthday, setBirthDay] = useState<string>("");
 
-  const postman = axios.create({
-    baseURL: "https://localhost:9090/",
-    headers: { "Access-Control-Allow-Origin": true },
-  });
-
   const onSubmit = (formValues: FormData) => {
     postman
       .post("auth/add", formValues)
@@ -59,7 +55,20 @@ function CreateAccount() {
         alert("Inscription complete !");
       })
       .catch((error) => {
-        console.log(error);
+        switch (error.request.status) {
+          case 400:
+            if (error.response.data.message) {
+              alert(error.response.data.message);
+            }
+            if (error.response.data.errors !== undefined) {
+              error.response.data.errors.map(
+                (errorItem: string) =>
+                  alert(`Error is ${errorItem}`)
+              );
+            }
+            break;
+          default:
+        }
       });
   };
 
@@ -238,11 +247,26 @@ function CreateAccount() {
 
             <div className="form__group">
               <label>Pays</label>
-              <CountryDropdown
+              <Controller
+                name="country"
+                control={control}
                 value={country}
-                valueType="full"
+                rules={{ required: true }}
                 onChange={(val: string) => setCountry(val)}
+                render={({ onChange, value, name }) => (
+                  <CountryDropdown
+                    value={value}
+                    name={name}
+                    valueType="full"
+                    onChange={onChange}
+                  />
+                )}
               />
+              <div className="form__groupErrors">
+                {errors.country?.type === "required" && (
+                  <p>Your input is required</p>
+                )}
+              </div>
             </div>
             <div className="form__footer">
               <button type="submit" value="Submit">
