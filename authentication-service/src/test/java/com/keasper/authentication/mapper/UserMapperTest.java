@@ -35,15 +35,15 @@ class UserMapperTest {
 		UserDTO userDto = mapper.toDto(user);
 
 		assertThat(user.getId()).isEqualTo(userDto.getId());
-		assertThat(user.getFirstname()).isEqualTo("Bouf");
-		assertThat(user.getFirstname()).isEqualTo(userDto.getFirstname());
-		assertThat(user.getLastname()).isEqualTo(userDto.getLastname());
+		assertThat(user.getSurname()).isEqualTo("Bouf");
+		assertThat(user.getSurname()).isEqualTo(userDto.getSurname());
+		assertThat(user.getName()).isEqualTo(userDto.getName());
 		assertThat(user.getEmail()).isEqualTo(userDto.getEmail());
 		assertThat(user.getCountry()).isEqualTo(userDto.getCountry());
 		assertThat(user.getTel()).isEqualTo(userDto.getTel());
 		assertThat(user.getBirthday()).isEqualTo(userDto.getBirthday());
-		assertThat(user.getCreatedAccount()).isEqualTo(userDto.getCreatedAccount());
-		assertThat(user.getHashPass()).isEqualTo(userDto.getHashPass());
+		assertThat(user.getCreatedAccountDate()).isEqualTo(userDto.getCreatedAccountDate());
+		assertThat(user.getPassword()).isEqualTo(userDto.getPassword());
 
 
 	}
@@ -57,14 +57,14 @@ class UserMapperTest {
 		User user = mapper.fromDto(userDto);
 
 		assertThat(userDto.getId()).isEqualTo(user.getId());
-		assertThat(userDto.getFirstname()).isEqualTo(user.getFirstname());
-		assertThat(userDto.getLastname()).isEqualTo(userDto.getLastname());
+		assertThat(userDto.getSurname()).isEqualTo(user.getSurname());
+		assertThat(userDto.getName()).isEqualTo(userDto.getName());
 		assertThat(userDto.getEmail()).isEqualTo(user.getEmail());
 		assertThat(userDto.getCountry()).isEqualTo(user.getCountry());
 		assertThat(userDto.getTel()).isEqualTo(user.getTel());
 		assertThat(userDto.getBirthday()).isEqualTo(user.getBirthday());
-		assertThat(userDto.getCreatedAccount()).isEqualTo(user.getCreatedAccount());
-		assertThat(userDto.getHashPass()).isEqualTo(user.getHashPass());
+		assertThat(userDto.getCreatedAccountDate()).isEqualTo(user.getCreatedAccountDate());
+		assertThat(userDto.getPassword()).isEqualTo(user.getPassword());
 	}
 
 }

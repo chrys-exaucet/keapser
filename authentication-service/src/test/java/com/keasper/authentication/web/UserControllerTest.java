@@ -65,13 +65,13 @@ class UserControllerTest {
 		for(UserDTO user: usersDTO) {
 
 			mock.perform(get("/auth/users")).andExpect(status().isOk()).andDo(print())
-			.andExpect(jsonPath("["+i+"].firstname").value(mapper.fromDto(user).getFirstname()))
-			.andExpect(jsonPath("["+i+"].lastname").value(mapper.fromDto(user).getLastname()))
+			.andExpect(jsonPath("["+i+"].firstname").value(mapper.fromDto(user).getSurname()))
+			.andExpect(jsonPath("["+i+"].lastname").value(mapper.fromDto(user).getName()))
 			.andExpect(jsonPath("["+i+"].email").value(mapper.fromDto(user).getEmail()))
 			.andExpect(jsonPath("["+i+"].country").value(mapper.fromDto(user).getCountry()))
 			.andExpect(jsonPath("["+i+"].tel").value(mapper.fromDto(user).getTel()))
 			.andExpect(jsonPath("["+i+"].birthday").value(mapper.fromDto(user).getBirthday().toString()))
-			.andExpect(jsonPath("["+i+"].hashPass").value(mapper.fromDto(user).getHashPass()));
+			.andExpect(jsonPath("["+i+"].hashPass").value(mapper.fromDto(user).getPassword()));
 			i++;
 		}
 

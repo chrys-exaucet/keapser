@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataIntegrityViolationException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<Object> handleCityNotFoundException(
-			UserNotFoundException ex, WebRequest request) {
+	public ResponseEntity<Object> handleCityNotFoundException(UserNotFoundException ex, WebRequest request) {
 
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDateTime.now());
@@ -32,40 +31,36 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(NoDataFoundException.class)
-	public ResponseEntity<Object> handleNodataFoundException(
-			NoDataFoundException ex, WebRequest request) {
+	public ResponseEntity<Object> handleNodataFoundException(NoDataFoundException ex, WebRequest request) {
 
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDateTime.now());
-		body.put("message", "No users found");
+		body.put("message", "No user found");
 
 		return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<Object> handleDuplicateKeyException(
-			DataIntegrityViolationException ex, WebRequest request) {
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handleDuplicateKeyException(ConstraintViolationException ex, WebRequest request) {
 
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDateTime.now());
-		body.put("message", String.format("Duplicate key or unique constraint: %s", ex.getCause().getMessage()));
 
-		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+		body.put("message",
+				String.format("Duplicate key (unique constraint): %s", ex.getCause().toString().split(":")[3]));
+
+		return new ResponseEntity<>(body, HttpStatus.CONFLICT);
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-			MethodArgumentNotValidException ex, HttpHeaders headers, 
-			HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDate.now());
 		body.put("status", status.value());
 
-		List<String> errors = ex.getBindingResult()
-				.getFieldErrors()
-				.stream()
-				.map(x -> x.getDefaultMessage())
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
 				.collect(Collectors.toList());
 
 		body.put("errors", errors);

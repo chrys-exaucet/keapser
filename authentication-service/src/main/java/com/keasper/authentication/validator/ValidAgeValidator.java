@@ -22,7 +22,6 @@ public class ValidAgeValidator implements ConstraintValidator<ValidAge, LocalDat
 	public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
 		LocalDate now = LocalDate.now(); //gets localDate
 		Period diff = Period.between(value, now); //difference between the dates is calculated
-		
 		if (diff.getYears()>min && diff.getYears()<max) {
 			return true;
 		}

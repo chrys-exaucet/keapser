@@ -17,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import com.keasper.authentication.validator.ValidAge;
+
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="users")
-//Define a sequence - might also be in another class:
 @SequenceGenerator(name="idSeq", initialValue=1, allocationSize=50)
 public class User {
 	@Id
@@ -34,10 +35,10 @@ public class User {
 	private long id;
 
 	@NotEmpty(message="Firstname cannot be empty")
-	private String firstname;
+	private String surname;
 
 	@NotEmpty(message="Lastname cannot be empty")
-	private String lastname;
+	private String name;
 
 
 	@Email(message="Email should be valid")
@@ -47,23 +48,25 @@ public class User {
 	@NotEmpty(message="Country should be valid")
 	private String country;
 
-	@Size(min=5, max=10, message="Telephone should be valid : cannot be empty")
+	@Size(min=5, max=15, message="Telephone should be valid : cannot be empty")
 	@NotBlank(message="Telephone should be valid : not blank character")
 	@Column(unique = true)
 	private String tel;
 
 	@Past(message="Birthday is not past")
+	@ValidAge()
 	private LocalDate birthday;
 
-	private LocalDateTime createdAccount;
+	private LocalDateTime createdAccountDate;
 
 	@NotEmpty(message="Password cannot be empty")
-	private String hashPass;
+	private String password;
 
 
 	@PrePersist
 	private void onCreate() {
-		this.setCreatedAccount(LocalDateTime.now());
+		this.setCreatedAccountDate(LocalDateTime.now());
+		
 	}
 
 }

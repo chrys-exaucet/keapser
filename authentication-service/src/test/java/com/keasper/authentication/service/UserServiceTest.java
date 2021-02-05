@@ -60,9 +60,9 @@ class UserServiceTest {
 	@DisplayName("Verifie qui trouve un utilisateur ou pas par FirstName")
 	void testFindByFirstName() {
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918",LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
-		Mockito.when(userRepository.findByFirstname("Bouf")).thenReturn(user);
-		assertThat(userService.findByFirstName("Bouf")).isEqualTo(userRepository.findByFirstname("Bouf"));
-		assertThrows(NullPointerException.class, ()->userService.findByFirstName(""));
+		Mockito.when(userRepository.findBySurname("Bouf")).thenReturn(user);
+		assertThat(userService.findBySurname("Bouf")).isEqualTo(userRepository.findBySurname("Bouf"));
+		assertThrows(NullPointerException.class, ()->userService.findBySurname(""));
 	}
 
 
@@ -70,9 +70,9 @@ class UserServiceTest {
 	@DisplayName("Verifie qui trouve un utilisateur ou pas par LastName")
 	void testFindByLastName() {
 		User user = new User(1L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
-		Mockito.when(userRepository.findByLastname("Jen")).thenReturn(user);
-		assertThrows(NullPointerException.class, ()->userService.findByLastName(""));
-		assertThat(userService.findByLastName("Jen")).isEqualTo(userRepository.findByLastname("Jen"));
+		Mockito.when(userRepository.findByName("Jen")).thenReturn(user);
+		assertThrows(NullPointerException.class, ()->userService.findByName(""));
+		assertThat(userService.findByName("Jen")).isEqualTo(userRepository.findByName("Jen"));
 
 	}
 
@@ -84,7 +84,7 @@ class UserServiceTest {
 		Mockito.when(userRepository.save(user)).thenReturn(user);
 
 		assertThat(userService.save(user)).isEqualTo(user);
-		assertThat(userService.save(user).getLastname()).isEqualTo("Jen");
+		assertThat(userService.save(user).getName()).isEqualTo("Jen");
 
 		assertThat(userService.save(new User())).isNotEqualTo(user);
 	}
@@ -94,7 +94,7 @@ class UserServiceTest {
 	void testUpdate() {
 		User user = new User(10L,"Bouf","Jen","derdson@gmail.com","Benin","+221979918", LocalDate.of(1999, 5, 26), LocalDateTime.now(), "gjn");
 		Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-		user.setLastname("Beef");
+		user.setName("Beef");
 		assertThat(userService.update(user)).isNotEqualTo(user);
 
 	}
