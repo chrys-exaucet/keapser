@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +41,11 @@ public class UserController {
 
 	public final UserMapper mapper =  UserMapper.INSTANCE;
 
+	@GetMapping("/")
+	public String base (@AuthenticationPrincipal OidcUser user) {
+		return "Bienvenue, "+ user.getFullName() + "!";	
+	}
+	
 	@ApiOperation(value="Retourne tous les utilisateurs")
 	@GetMapping(value = "/users")
 	private List<UserDTO> getUsers(){

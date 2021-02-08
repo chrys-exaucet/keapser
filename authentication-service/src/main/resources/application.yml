@@ -12,3 +12,10 @@ spring:
     url: "jdbc:postgresql://localhost:2022/postgres"
     username: postgres
     password: password
+    
+okta.oauth2:
+    issuer: https://dev-37034858.okta.com/oauth2/default
+    client-id: 0oa558eepxKGkDNsc5d6
+    client-secret: p6OCdELwUOgsFgdGtRrN3ZzjRWNesHcIy0K31boU
+    redirect-uri: /auth/authorization-code/callback 
+    audience: api://default

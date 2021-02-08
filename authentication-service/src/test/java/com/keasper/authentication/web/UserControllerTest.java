@@ -3,6 +3,7 @@ package com.keasper.authentication.web;
 
 
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -36,7 +38,8 @@ import com.keasper.authentication.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(UserController.class)
+@WebMvcTest(controllers=UserController.class)
+@WithMockUser
 class UserControllerTest {
 
 	@MockBean
@@ -64,7 +67,7 @@ class UserControllerTest {
 		int i=0;
 		for(UserDTO user: usersDTO) {
 
-			mock.perform(get("/auth/users")).andExpect(status().isOk()).andDo(print())
+			mock.perform(get("/auth/users/").with(csrf())).andExpect(status().isOk()).andDo(print())
 			.andExpect(jsonPath("["+i+"].firstname").value(mapper.fromDto(user).getSurname()))
 			.andExpect(jsonPath("["+i+"].lastname").value(mapper.fromDto(user).getName()))
 			.andExpect(jsonPath("["+i+"].email").value(mapper.fromDto(user).getEmail()))
@@ -83,8 +86,8 @@ class UserControllerTest {
 	@DisplayName("Teste la supperession d'un utilisateur par son id")
 	void testDeleteEmployee() throws Exception {
 		Mockito.when(userService.delete(1L)).thenReturn(true);
-		mock.perform(delete("/auth/delete/1")).andExpect(status().isNoContent());
-		mock.perform(delete("/auth/delete/2")).andExpect(status().isNotFound());
+		mock.perform(delete("/auth/users/1")).andExpect(status().isNoContent());
+		mock.perform(delete("/auth/users/2")).andExpect(status().isNotFound());
 	}
 
 
